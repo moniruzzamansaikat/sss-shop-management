@@ -1,6 +1,6 @@
 <x-layout title="Edit Category">
   <!-- create category modal -->
-  <div class="modal fade " id="editCategoryModal" tabindex="-1" aria-labelledby="createdCategory" aria-hidden="true" >
+  <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="createdCategory" aria-hidden="true" >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -11,7 +11,7 @@
         <div class="modal-body">
           <div class="card">
             <div class="card-body">
-              <form action="{{route('categories.update', $category)}}" method="post">
+              <form action="{{route('categories.update', $category)}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">

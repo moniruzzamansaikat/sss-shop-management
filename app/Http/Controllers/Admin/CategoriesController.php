@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
 {
     public function index(){
-        $categories = Category::paginate(10);
+        $categories = Category::orderBy('created_at', 'desc')->get();
+
         return view('categories.index', compact('categories'));
     }
 
@@ -20,15 +23,13 @@ class CategoriesController extends Controller
         ]);
 
         $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
 
         if($request -> hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images/categories'), $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = $request -> image -> store('categories', 'public');
         }
 
-        $category = Category::create($data);
+        Category::create($data);
         return redirect()->route('categories.index')->with('success', 'Category created successfully');
     }
 
@@ -45,20 +46,26 @@ class CategoriesController extends Controller
             'description' => 'required|string|max:255',
         ]);
 
-        $data = $request->all();
+        $category -> name = $request -> name;
+        $category -> description = $request -> description;
 
         if($request -> hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images/categories'), $imageName);
-            $data['image'] = $imageName;
+            if($category -> image && Storage::disk('public') -> exists($category -> image)) {
+                Storage::disk('public') -> delete($category -> image);
+            }
+
+            $category -> image = $request -> image -> store('categories', 'public');
         }
 
-        $category->update($data);
+        $category -> save(); 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully');
     }
 
     public function destroy(Category $category){
+        if($category -> image && Storage::disk('public')) {
+            Storage::disk('public')->delete($category->image);
+        }
+        
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
     } 

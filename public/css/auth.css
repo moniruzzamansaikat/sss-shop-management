@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,800;1,300;1,400;1,500&display=swap");
+
+:root {
+    --clr-dark-one: #16003b;
+    --clr-dark-two: #2d4263;
+    --clr-dark-three: #150050;
+
+    --clr-primary: #243d25;
+    --clr-lighter: #82dbd8;
+    --clr-darker: #2f8f9d;
+    --clr-secondary: #ff8d29;
+    --clr-secondary-depper: #e4781a;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    background: var(--clr-dark-three);
+}
+
+/* buttons */
+.btn-primary {
+    background: var(--clr-secondary);
+    border: 0;
+    box-shadow: 0 0 0 !important;
+    border-radius: 3px;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--clr-secondary-depper);
+}
+
+/* cards */
+.card {
+    background-color: var(--clr-dark-two);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+        rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.card.login_card {
+    margin-top: 40%;
+}
+
+.card.login_card * {
+    color: #f0f0f0;
+}
+
+/* form controls */
+.form-control {
+    border-radius: 0;
+    border: 0;
+    color: var(--clr-dark-one) !important;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border: none;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: red;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: red;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 !important;
+}
