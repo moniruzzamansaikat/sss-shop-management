@@ -30,6 +30,9 @@ class OrdersController extends Controller
         ]);
 
         $product = Product::find($request->product_id);
+        
+        $product->sold += 1;
+        $product->quantity -= 1;
 
         $order = new Order();
         $order->customer_id = $request->customer_id;
