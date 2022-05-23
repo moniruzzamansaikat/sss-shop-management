@@ -6,10 +6,8 @@
     </button>
   </div>
 
-  @if(Session::has('success'))
-    <x-success-alert>{{Session::get("success")}}</x-success-alert>
-  @endif
-
+  @include('partials.alerts')
+  
   <!-- list of categires -->
   <div class="table-responsive mt-3">
     <table class="table" id="myTable">

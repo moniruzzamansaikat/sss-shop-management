@@ -5,6 +5,8 @@
       <span>Add New User</span>
     </a>
   </div>
+  
+  @include('partials.alerts')
 
   <div class="table-responsive mt-3">
       <table class="table table-bordered" id="myTable">

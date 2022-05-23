@@ -21,6 +21,7 @@ class OrdersController extends Controller
     }
 
     public function store(Request $request){
+        return $request -> all(); 
         $this->validate($request, [
             'customer_id' => 'required|integer',
             'product_id' => 'required|integer',
@@ -29,10 +30,13 @@ class OrdersController extends Controller
             'status' => 'required|string|max:255',
         ]);
 
+
         $product = Product::find($request->product_id);
         
-        $product->sold += 1;
+        $product->sold += 1; 
         $product->quantity -= 1;
+
+        $product -> save();
 
         $order = new Order();
         $order->customer_id = $request->customer_id;
