@@ -24,14 +24,18 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/', [DashboardController::class, 'index'])->name('index');
   Route::resource('/customers', CustomersController::class);
-  Route::resource('/users', UsersController::class);
   Route::resource('/products', ProductsController::class);
   Route::resource('/categories', CategoriesController::class)->except('create');
   Route::resource('/orders', OrdersController::class);
   Route::get('/orders/{order}/invoice', [OrdersController::class, 'invoice'])->name('orders.invoice');
   Route::get('/orders/{order}/complete', [OrdersController::class, 'make_complete'])->name('orders.complete');
-  Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
-  Route::put('/setting', [SettingController::class, 'update'])->name('setting.update');
+  
+  // only for admin
+  Route::group(['middleware' => 'isAdmin'], function(){
+    Route::resource('/users', UsersController::class);
+    Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::put('/setting', [SettingController::class, 'update'])->name('setting.update');
+  });
 });
 
 Route::group(['middleware' => 'guest'], function(){

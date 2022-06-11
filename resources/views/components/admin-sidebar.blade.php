@@ -11,12 +11,14 @@
         </li>
 
         <!-- users -->
+        @can('create', auth() -> user())
         <li class="list-group-item">
           <a data-bs-toggle="collapse" href="#userCollapse" role="button" aria-expanded="false" aria-controls="userCollapse">
             <span><ion-icon name="person-outline"></ion-icon> <span>Users</span></span>
             <ion-icon class="right-icon" name="chevron-down-outline"></ion-icon>
           </a>
         </li>
+        
         <div class="collapse ps-4 {{request()->is('users*') ? 'show' : ''}}" id="userCollapse">
           <li class="list-group-item {{request() -> is('users') ? 'active': ''}}">
             <a href="{{route('users.index')}}"><span><ion-icon name="person-outline"></ion-icon> <span>Users</span></span></a>
@@ -25,6 +27,7 @@
             <a href="{{route('users.create')}}"><span><ion-icon name="add-outline"></ion-icon> <span>Add User</span></span></a>
           </li>        
         </div>
+        @endcan
         <!-- end of users -->
 
         <!-- products -->
@@ -83,9 +86,11 @@
         </div>
         <!-- end of customers -->
 
+        @can('create', auth() -> user())
         <li class="list-group-item {{request() -> is('setting*') ? 'active': ''}}">
           <a href="{{route('setting.index')}}"><span><ion-icon name="cog-outline"></ion-icon> <span>Setting</span></span></a>
         </li>
+        @endcan
       </ul>
 
       <div class="soft_provider">
