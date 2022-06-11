@@ -19,7 +19,7 @@ class ProductsController extends Controller
     }
 
     public function index(){
-        $products = Product::orderBy('created_at', 'desc')->paginate(10);
+        $products = Product::orderBy('created_at', 'desc')->get();
         return view('products.index', compact('products'));
     }
 
@@ -89,7 +89,9 @@ class ProductsController extends Controller
             Storage::disk('public')->delete($product->image);
         }  
 
-        $product -> delete();
+        // move product to trash 
+        $product -> trashed();
+
         return redirect()->route('products.index')->with('success', 'Product deleted successfully');
     }
 }

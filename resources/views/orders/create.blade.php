@@ -26,31 +26,18 @@
             </select>
           </div>
           <div class="form-group mb-2">
-            <table class="table table-bordered bg-white mt-3" >
-              <tbody>
-                <tr>
-                  <td colspan="3">
-                    <span class="text-dark">Select Products</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select name="product_id[]" id="product_id" class="form-control mt-2">
-                      <option value="" selected>Select Product</option>
-                      @foreach($products as $product)
-                        <option value="{{$product -> id}}">{{$product -> name}}</option>
-                      @endforeach
-                    </select>
-                  </td>
-                  <td>
-                    <input type="number" name="quantity[]" id="quantity" placeholder="Quantity" class="form-control mt-2">
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-primary btn-block w-100 mt-2" id="product_add_row_button">+</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <label for="product_id">Select Product</label>
+            <select name="product_id" id="product_id" class="form-control mt-2">
+              <option value="" selected>Select Product</option>
+              @foreach($products as $product)
+                <option value="{{$product -> id}}">{{$product -> name}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group mb-2">
+
+            <label for="quantity">Quantity</label>
+            <input type="number" name="quantity" id="quantity" class="form-control mt-2">
           </div>
 
           <div class="row">
@@ -86,26 +73,6 @@
     </div>
   </div>
 
-  <script>
-    // add or remove new rows
-    const product_add_row_button = document.querySelector('#product_add_row_button')
-    
-    product_add_row_button.addEventListener('click',function(){
-      const row = this.parentElement.parentElement;
-      const clonedRow = row.cloneNode(true);
-
-      // remove the option has been selected
-      clonedRow.querySelector('#product_id').remove(clonedRow.querySelector('#product_id').selectedIndex); 
-
-      row.parentElement.appendChild(clonedRow);
-      clonedRow.querySelector('button').innerHTML = '-';
-      clonedRow.querySelector('button').className = 'btn btn-danger mt-2 w-100';
-      clonedRow.querySelector('button').addEventListener('click', function(){
-        this.parentElement.parentElement.remove();
-      })
-    })
-  </script>
-  
 </x-layout>
 
 

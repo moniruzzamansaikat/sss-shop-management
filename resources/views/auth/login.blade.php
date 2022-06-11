@@ -32,7 +32,7 @@
               </div>
               <div class="form-group mb-2">
                 <label for="password">Password</label>
-                <input type="password" class="form-control mt-2" id="password" name="password" placeholder="Password" value="password">
+                <input type="password" class="form-control mt-2" id="password" name="password" placeholder="Password" value="saikat">
               </div>
               <div class="form-group form-check mb-2">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">

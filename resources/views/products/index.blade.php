@@ -23,6 +23,8 @@
         </tr>
       </thead>
       <tbody>
+        
+        
         @foreach($products as $product)
           <tr>
             <td>{{$loop -> index + 1}}</td>
@@ -47,6 +49,5 @@
         @endforeach
       </tbody>
     </table>
-    {{$products -> links()}}
   </div>
 </x-layout>

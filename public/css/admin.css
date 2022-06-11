@@ -150,6 +150,21 @@ img.category_add_img {
     margin-top: 10px;
 }
 
+/* list group */
+.list-group {
+    border-radius: 0;
+}
+
+.list-group-item {
+    color: var(--clr-dark-one);
+}
+
+.list-group-item.product_for_order {
+    background: var(--clr-secondary);
+    display: flex;
+    justify-content: space-between;
+}
+
 /* main */
 main {
     margin-top: 30px;

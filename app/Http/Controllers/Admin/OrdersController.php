@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -15,13 +16,12 @@ class OrdersController extends Controller
     }
 
     public function create(){
-        $products = \App\Models\Product::all();
-        $customers = \App\Models\Customer::all();
+        $products = Product::all();
+        $customers = Customer::all();
         return view('orders.create', compact('products', 'customers'));
     }
 
     public function store(Request $request){
-        return $request -> all(); 
         $this->validate($request, [
             'customer_id' => 'required|integer',
             'product_id' => 'required|integer',
@@ -29,7 +29,6 @@ class OrdersController extends Controller
             'payment_method' => 'required|string|max:255',
             'status' => 'required|string|max:255',
         ]);
-
 
         $product = Product::find($request->product_id);
         
@@ -48,14 +47,13 @@ class OrdersController extends Controller
         $order->save();
         
         return redirect()->route('orders.index')->with('success', 'Order created successfully');
-
     }
 
     public function show($id){
     }
 
-    public function edit($id){
-        return view('orders.edit');
+    public function edit(Order $order){
+        return view('orders.edit', compact('order'));
     }
 
     public function update(Request $request, $id){

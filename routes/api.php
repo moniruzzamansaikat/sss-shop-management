@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/categories/hokesala', function () {
-    return \App\Models\Category::all();
-});
-
-
+Route::post('/products/search', function(Request $request){
+    // return as json
+    $products = Product::where('name', 'like', '%' . $request->query_key . '%')->get();
+    return $products;
+}); 

@@ -1,4 +1,35 @@
-const sidebarTogglerButton = document.querySelector(".main_sidebar_toggler");
+const sidebarTogglerButton = $(".main_sidebar_toggler");
+
+// live input for product
+$(document).ready(function () {
+    $("#search-product-for-order").on("input", function () {
+        $query = $(this).val();
+        console.log($query);
+        $.post(
+            `/api/products/search`,
+            {
+                query_key: $query,
+            },
+            function (data, status) {
+                let html_template = ``;
+
+                if (data.length > 0 && $query.length > 0) {
+                    data.forEach((product) => {
+                        html_template += `<li class="list-group-item product_for_order">
+                                <span>${product.name}</span>
+                                <span>${product.price}$</span>
+                                <button class="btn btn-primary" type="button">+</button>
+                            </li>`;
+                    });
+                } else {
+                    html_template = "";
+                }
+
+                $("ul.products_list_for_order").html(html_template);
+            }
+        );
+    });
+});
 
 // confirm link click
 $(".confirm_button").click(function (e) {
